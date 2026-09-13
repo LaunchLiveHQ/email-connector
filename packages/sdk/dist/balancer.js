@@ -9,15 +9,18 @@ export class ZeroTrustBalancer {
         this.timeoutMs = options.timeoutMs || 8000; // 8 second timeout per provider
         // Instantiate drivers and sort by priority (1 = highest priority)
         this.servers = options.servers
-            .filter((s) => s.isActive)
+            .filter((s) => s.isActive !== false && s.status !== "inactive")
             .map((s) => ({
             id: s.id,
             driver: createDriverFromServer(s),
-            priority: s.priority,
-            dailyLimit: s.dailyLimit,
-            isActive: s.isActive
+            priority: s.priority ?? 1,
+            dailyLimit: s.dailyLimit ?? 100,
+            isActive: s.isActive !== false && s.status !== "inactive"
         }))
             .sort((a, b) => a.priority - b.priority);
+    }
+    async sendEmail(payload) {
+        return this.send(payload);
     }
     async send(payload) {
         const today = new Date().toISOString().slice(0, 10);

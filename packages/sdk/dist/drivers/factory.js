@@ -35,6 +35,21 @@ export function createDriver(driverType, credentials) {
     }
 }
 export function createDriverFromServer(server) {
-    return createDriver(server.driver, server.credentials);
+    const driverType = (server.driver || server.provider || "smtp");
+    const credentials = (server.credentials || {
+        apiKey: server.apiKey,
+        secretKey: server.apiSecret || server.secretKey,
+        serverToken: server.serverToken,
+        domain: server.domain,
+        host: server.host,
+        port: server.port,
+        user: server.user,
+        password: server.password,
+        encryption: server.encryption,
+        accessKeyId: server.accessKeyId,
+        secretAccessKey: server.secretAccessKey,
+        region: server.region,
+    });
+    return createDriver(driverType, credentials);
 }
 //# sourceMappingURL=factory.js.map

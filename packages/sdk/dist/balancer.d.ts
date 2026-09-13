@@ -18,6 +18,7 @@ export declare class ZeroTrustBalancer {
     private storage;
     private timeoutMs;
     constructor(options: BalancerOptions);
+    sendEmail(payload: UnifiedEmailPayload): Promise<SendResult>;
     send(payload: UnifiedEmailPayload): Promise<SendResult>;
     getQuotaStatus(): Promise<Array<{
         serverId: string;

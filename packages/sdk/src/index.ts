@@ -5,3 +5,4 @@ export * from "./subscription.js";
 export * from "./webhooks/signature.js";
 export * from "./automations/cart-recovery.js";
 export * from "./connector.js";
+export * from "@emailconnector/config-schema";
