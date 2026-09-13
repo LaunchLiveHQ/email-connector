@@ -33,6 +33,33 @@ Stack 5+ free email tiers to dispatch **~24,000 free transactional emails every 
 ## 🚀 Quickstart: Zero-Trust SDK (`@emailconnector/sdk`)
 
 ### 1. Installation
+
+#### Option A: Direct from GitHub (Works Today — No npm registry wait!)
+Install and use `@emailconnector/sdk` directly from GitHub today without waiting for npm publication:
+
+```bash
+# Direct install from GitHub (automatically links as @emailconnector/sdk)
+npm install git+https://github.com/LaunchLiveHQ/email-connector.git
+```
+
+*Or explicitly named:*
+```bash
+npm install @emailconnector/sdk@git+https://github.com/LaunchLiveHQ/email-connector.git
+```
+
+With other package managers:
+```bash
+# pnpm
+pnpm add @emailconnector/sdk@git+https://github.com/LaunchLiveHQ/email-connector.git
+
+# Yarn
+yarn add @emailconnector/sdk@git+https://github.com/LaunchLiveHQ/email-connector.git
+
+# Bun
+bun add @emailconnector/sdk@git+https://github.com/LaunchLiveHQ/email-connector.git
+```
+
+#### Option B: Standard npm Registry (When published)
 ```bash
 npm install @emailconnector/sdk
 ```
@@ -92,8 +119,12 @@ console.log(`Dispatched via: ${response.provider} (Status: ${response.status})`)
 Drop an enterprise-grade Sending Servers control plane into your SaaS settings screen in seconds:
 
 ```bash
+# npm registry (when published)
 npm install @emailconnector/react
 ```
+
+> **Note for Direct GitHub Install:** If you installed via `git+https://github.com/LaunchLiveHQ/email-connector.git`, you can import all components directly from `@emailconnector/sdk/react` without a separate package installation!
+
 
 ```tsx
 "use client";

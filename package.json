@@ -1,14 +1,40 @@
 {
-  "name": "@emailconnector/opensource",
+  "name": "@emailconnector/sdk",
   "version": "1.0.0",
   "description": "The Open-Source Zero-Trust Email Orchestration SDK & Embeddable React UI",
-  "private": true,
+  "main": "./packages/sdk/dist/index.js",
+  "module": "./packages/sdk/dist/index.js",
+  "types": "./packages/sdk/dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./packages/sdk/dist/index.d.ts",
+      "import": "./packages/sdk/dist/index.js",
+      "require": "./packages/sdk/dist/index.js",
+      "default": "./packages/sdk/dist/index.js"
+    },
+    "./react": {
+      "types": "./packages/react/dist/index.d.ts",
+      "import": "./packages/react/dist/index.js",
+      "require": "./packages/react/dist/index.js",
+      "default": "./packages/react/dist/index.js"
+    },
+    "./schema": {
+      "types": "./packages/config-schema/dist/index.d.ts",
+      "import": "./packages/config-schema/dist/index.js",
+      "require": "./packages/config-schema/dist/index.js",
+      "default": "./packages/config-schema/dist/index.js"
+    }
+  },
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
+    "prepare": "npm run build --workspaces",
     "build": "npm run build --workspaces",
     "test": "npm test -w packages/sdk"
+  },
+  "dependencies": {
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "typescript": "^5.7.3",

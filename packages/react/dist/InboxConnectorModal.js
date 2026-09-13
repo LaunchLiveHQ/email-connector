@@ -1,0 +1,23 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useState } from "react";
+import { X, Mail, ShieldCheck, CheckCircle2 } from "lucide-react";
+export const InboxConnectorModal = ({ isOpen, onClose, onConnect }) => {
+    const [provider, setProvider] = useState("cloudflare");
+    const [address, setAddress] = useState("");
+    const [isSuccess, setIsSuccess] = useState(false);
+    if (!isOpen)
+        return null;
+    const handleConnect = (e) => {
+        e.preventDefault();
+        if (!address.trim())
+            return;
+        onConnect?.({ provider, address: address.trim() });
+        setIsSuccess(true);
+        setTimeout(() => {
+            setIsSuccess(false);
+            onClose();
+        }, 1200);
+    };
+    return (_jsx("div", { className: "fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4", children: _jsxs("div", { className: "relative w-full max-w-md rounded-2xl border border-slate-800 bg-slate-950 p-6 shadow-2xl", children: [_jsx("button", { onClick: onClose, className: "absolute right-4 top-4 rounded-lg p-1 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors", children: _jsx(X, { className: "h-5 w-5" }) }), _jsxs("div", { className: "flex items-center gap-2 mb-3", children: [_jsx("div", { className: "rounded-lg bg-indigo-500/10 p-2 text-indigo-400 border border-indigo-500/20", children: _jsx(Mail, { className: "h-5 w-5" }) }), _jsxs("div", { children: [_jsx("h3", { className: "text-base font-bold text-white", children: "Connect Universal Mailbox" }), _jsx("p", { className: "text-xs text-slate-400", children: "Inbound OTP & Thread Synchronization" })] })] }), _jsx("p", { className: "text-xs text-slate-300 mb-4 leading-relaxed", children: "Connect your mailbox or domain routing to ingest incoming emails, extract OTP codes, and make messages available to your AI agents via Model Context Protocol (MCP)." }), _jsxs("form", { onSubmit: handleConnect, className: "space-y-4", children: [_jsxs("div", { children: [_jsx("label", { className: "block text-xs font-semibold text-slate-300 mb-1", children: "Mailbox Provider" }), _jsxs("select", { value: provider, onChange: (e) => setProvider(e.target.value), className: "w-full rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-sm text-white focus:border-indigo-500 focus:outline-none", children: [_jsx("option", { value: "cloudflare", children: "Cloudflare Email Routing (Custom Domain / Worker)" }), _jsx("option", { value: "gmail", children: "Google Gmail (API / OAuth 2.0)" }), _jsx("option", { value: "outlook", children: "Microsoft 365 / Outlook (Graph API)" }), _jsx("option", { value: "imap", children: "Generic IMAP Relay (Self-Hosted / Corporate)" }), _jsx("option", { value: "webhook", children: "Custom Webhook Intake" })] })] }), _jsxs("div", { children: [_jsx("label", { className: "block text-xs font-semibold text-slate-300 mb-1", children: "Mailbox Email Address" }), _jsx("input", { type: "email", placeholder: "e.g., agent@mybrand.com or alerts@gmail.com", value: address, onChange: (e) => setAddress(e.target.value), className: "w-full rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-sm text-white focus:border-indigo-500 focus:outline-none", required: true })] }), isSuccess && (_jsxs("div", { className: "flex items-center gap-2 rounded-lg p-3 text-xs bg-emerald-500/10 text-emerald-300 border border-emerald-500/20", children: [_jsx(CheckCircle2, { className: "h-4 w-4 text-emerald-400 shrink-0" }), _jsx("span", { children: "Mailbox connected successfully! Initializing synchronization..." })] })), _jsxs("div", { className: "flex items-center justify-between pt-2 border-t border-slate-800", children: [_jsxs("span", { className: "flex items-center gap-1 text-[11px] text-slate-500", children: [_jsx(ShieldCheck, { className: "h-3.5 w-3.5 text-indigo-400" }), " AES-256-GCM encrypted"] }), _jsxs("div", { className: "flex items-center gap-2", children: [_jsx("button", { type: "button", onClick: onClose, className: "rounded-lg px-3 py-1.5 text-xs text-slate-400 hover:text-white transition-colors", children: "Cancel" }), _jsx("button", { type: "submit", className: "rounded-lg bg-indigo-600 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-600/20", children: "Connect Mailbox" })] })] })] })] }) }));
+};
+//# sourceMappingURL=InboxConnectorModal.js.map

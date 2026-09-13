@@ -1,0 +1,1 @@
+{"version":3,"file":"SendingServersTable.d.ts","sourceRoot":"","sources":["../src/SendingServersTable.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAmB,MAAM,OAAO,CAAC;AAKxC,MAAM,WAAW,wBAAwB;IACvC,gBAAgB,CAAC,EAAE,MAAM,IAAI,CAAC;IAC9B,aAAa,CAAC,EAAE,MAAM,IAAI,CAAC;CAC5B;AAED,eAAO,MAAM,mBAAmB,EAAE,KAAK,CAAC,EAAE,CAAC,wBAAwB,CAmMlE,CAAC"}
