@@ -2,6 +2,7 @@
   "name": "@emailconnector/sdk",
   "version": "1.0.0",
   "description": "The Open-Source Zero-Trust Email Orchestration SDK & Embeddable React UI",
+  "type": "module",
   "main": "./packages/sdk/dist/index.js",
   "module": "./packages/sdk/dist/index.js",
   "types": "./packages/sdk/dist/index.d.ts",
