@@ -1,0 +1,62 @@
+---
+title: "Introduction"
+description: "Welcome to Email Connector — the zero-trust email orchestration platform and universal AI inbox engine."
+---
+
+<p align="center">
+  <img src="/logo/email-connector-logo.png" alt="Email Connector Banner" width="400" />
+</p>
+
+# Email Connector
+
+**Email Connector** is an open-source email orchestration engine and directory marketplace. It solves vendor lock-in and high transactional email costs by providing a **zero-trust, client-side load balancer** that stacks and rotates across free email tiers—granting developers **~24,000 completely free emails every month (800/day)** with $0.00 infrastructure spend.
+
+<CardGroup cols={2}>
+  <Card title="Quickstart Guide" icon="bolt" href="/quickstart">
+    Send your first transactional email via multi-provider failover in under 3 minutes.
+  </Card>
+  <Card title="Zero-Trust Architecture" icon="shield-check" href="/core-concepts/zero-trust">
+    Learn how Mode A guarantees your API keys and emails never touch our servers.
+  </Card>
+  <Card title="React UI Components" icon="react" href="/react/overview">
+    Drop our dark-mode `<SendingServersTable />` and modal directly into your SaaS.
+  </Card>
+  <Card title="AI Agent MCP Server" icon="robot" href="/gateway/mcp-server">
+    Connect Claude, Cursor, and LLM agents to send mail and poll OTP verification inboxes.
+  </Card>
+</CardGroup>
+
+---
+
+## Why Email Connector?
+
+### 1. Zero Cloud Intermediary (Zero-Trust Mode A)
+Unlike legacy email APIs and aggregators, Email Connector's SDK executes entirely in your own process memory (Node.js or Edge runtimes). 
+- **Direct HTTPS Requests:** Emails are delivered straight from your backend to Brevo, Resend, Mailjet, MailerSend, or SendGrid.
+- **No Data Leaks:** Recipient PII, email bodies, and provider API keys are never stored on, inspected by, or transmitted to any central database.
+
+### 2. Built-in Priority Cascades & Quota Failover
+Configure servers by priority level (1 to 5). If Priority 1 provider hits its daily free limit (e.g. Resend's 100/day limit) or encounters a rate limit (HTTP 429), the engine automatically cascades to Priority 2 (e.g. Brevo's 300/day limit) without dropping a single email.
+
+### 3. Embeddable React Admin (`@emailconnector/react`)
+Drop a full "Sending Servers & Integrations" screen into your user settings in minutes. It includes real-time circular quota gauges, status toggles, and pre-flight credential handshakes.
+
+### 4. High-Performance Go Gateway & MCP Server (`apps/gateway-go`)
+Includes a production-grade Go HTTP gateway with RFC 5322 MIME stream parsing, reply-chain stripping, automated OTP extraction, and a Model Context Protocol (MCP) server for autonomous AI workflows.
+
+---
+
+## Free Quota Breakdown
+
+| Provider | Integration | Daily Cap | Monthly Free Pool |
+| :--- | :--- | :---: | :---: |
+| **Brevo** | HTTPS REST API | 300 / day | 9,000 / mo |
+| **Mailjet** | HTTPS REST API | 200 / day | 6,000 / mo |
+| **Resend** | HTTPS REST API | 100 / day | 3,000 / mo |
+| **MailerSend** | HTTPS REST API | 100 / day | 3,000 / mo |
+| **Twilio SendGrid** | HTTPS REST API | 100 / day | 3,000 / mo |
+| **TOTAL FREE POOL** | **Automated Zero-Trust Cascade** | **800 / day** | **~24,000 / month** |
+
+<Check>
+All 5 providers offer perpetual free tiers without requiring a credit card to activate.
+</Check>

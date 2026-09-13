@@ -1,0 +1,30 @@
+{
+  "name": "@emailconnector/opensource",
+  "version": "1.0.0",
+  "description": "The Open-Source Zero-Trust Email Orchestration SDK & Embeddable React UI",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm test -w packages/sdk"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  },
+  "keywords": [
+    "email-connector",
+    "zero-trust",
+    "email-failover",
+    "resend",
+    "brevo",
+    "mailjet",
+    "sendgrid",
+    "transactional-email",
+    "react-email"
+  ],
+  "author": "LaunchLive (https://email-connector.com)",
+  "license": "Apache-2.0"
+}

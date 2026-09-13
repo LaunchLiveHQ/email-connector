@@ -1,0 +1,115 @@
+---
+title: "Quickstart"
+description: "Start sending emails with automated zero-trust failover in under 3 minutes."
+---
+
+## Step 1: Install the SDK
+
+Install `@emailconnector/sdk` via your preferred package manager:
+
+<CodeGroup>
+```bash npm
+npm install @emailconnector/sdk
+```
+
+```bash pnpm
+pnpm add @emailconnector/sdk
+```
+
+```bash yarn
+yarn add @emailconnector/sdk
+```
+
+```bash bun
+bun add @emailconnector/sdk
+```
+</CodeGroup>
+
+---
+
+## Step 2: Configure Sending Servers
+
+Initialize the `ZeroTrustBalancer` with your provider API keys. Servers with `priority: 1` are preferred. If a server exceeds its daily quota or returns HTTP 429, the balancer immediately shifts traffic to `priority: 2`.
+
+```typescript email.ts
+import { ZeroTrustBalancer } from "@emailconnector/sdk";
+
+export const mailer = new ZeroTrustBalancer({
+  servers: [
+    {
+      id: "resend-primary",
+      provider: "resend",
+      apiKey: process.env.RESEND_API_KEY!,
+      priority: 1,
+      dailyLimit: 100, // Resend free tier cap
+      status: "active",
+    },
+    {
+      id: "brevo-fallback",
+      provider: "brevo",
+      apiKey: process.env.BREVO_API_KEY!,
+      priority: 2,
+      dailyLimit: 300, // Brevo free tier cap
+      status: "active",
+    },
+    {
+      id: "mailjet-backup",
+      provider: "mailjet",
+      apiKey: process.env.MAILJET_API_KEY!,
+      apiSecret: process.env.MAILJET_API_SECRET!,
+      priority: 3,
+      dailyLimit: 200, // Mailjet free tier cap
+      status: "active",
+    }
+  ],
+});
+```
+
+---
+
+## Step 3: Send Your First Email
+
+Invoke `sendEmail` with standard email parameters. The SDK automatically resolves the best healthy provider, performs in-process quota incrementing, and dispatches directly to the ESP:
+
+```typescript send.ts
+import { mailer } from "./email";
+
+async function main() {
+  const result = await mailer.sendEmail({
+    from: "hello@yourdomain.com",
+    to: "alex@example.com",
+    subject: "Welcome to Our Platform",
+    text: "Thanks for signing up! Your account is ready.",
+    html: "<h1>Welcome!</h1><p>Thanks for signing up. Your account is ready.</p>",
+  });
+
+  console.log(`Email dispatched successfully!`);
+  console.log(`Provider: ${result.provider}`);
+  console.log(`Message ID: ${result.messageId}`);
+  console.log(`Attempts: ${result.attempts}`);
+}
+
+main().catch(console.error);
+```
+
+---
+
+## Step 4: Add Redis Persistence (Optional)
+
+In multi-instance production environments (e.g. Serverless / Kubernetes), attach a `RedisStorageAdapter` so all worker pods share the same synchronized daily quota counter:
+
+```typescript redis.ts
+import { ZeroTrustBalancer, RedisStorageAdapter } from "@emailconnector/sdk";
+import Redis from "ioredis";
+
+const redis = new Redis(process.env.REDIS_URL || "redis://localhost:6379");
+
+const balancer = new ZeroTrustBalancer({
+  storage: new RedisStorageAdapter(redis),
+  servers: [ /* your servers */ ],
+});
+```
+
+<Tip>
+When using serverless functions (e.g. Next.js on Vercel or AWS Lambda), the `RedisStorageAdapter` prevents race conditions when resetting daily quotas across ephemeral container instances.
+</Tip>

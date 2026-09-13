@@ -1,0 +1,55 @@
+---
+title: "MIME Parser & OTP Extractor"
+description: "RFC 5322 MIME stream parser with reply-quote stripping and OTP regex extraction."
+---
+
+## Overview
+
+When processing inbound transactional emails (e.g. from Cloudflare Email Routing, SendGrid Inbound Parse, or AWS SES S3 Ingestion), raw emails contain headers, HTML markup, and long reply chains.
+
+The Go Gateway includes a high-speed MIME stream parser in `internal/parser`.
+
+---
+
+## Capabilities
+
+### 1. Reply-Quote Stripping
+Removes conversational email thread clutter:
+- `> quoted lines`
+- `On [Date] [Person] wrote:`
+- `-----Original Message-----`
+- Outlook separator lines
+
+### 2. OTP & Verification Code Extraction
+Automatically discovers verification tokens:
+- **Numeric Codes:** 4 to 8 digit verification codes (e.g. `849201`).
+- **Prefixed Alphanumeric Codes:** Google/Discord/Twilio format (e.g. `G-942814`, `CODE-1234`).
+- **Action Links:** Auto-extracts one-click activation and magic login URLs.
+
+---
+
+## Inbound Webhook HTTP Endpoint
+
+`POST /api/v1/inbound/webhook`
+
+Send raw RFC 5322 MIME bytes or JSON-wrapped mail payloads:
+
+```bash
+curl -X POST http://localhost:8080/api/v1/inbound/webhook \
+  -H "Content-Type: message/rfc822" \
+  --data-binary @sample_email.eml
+```
+
+### JSON Response:
+```json
+{
+  "success": true,
+  "messageId": "<test-123@example.com>",
+  "from": "security@example.com",
+  "to": ["user@yourdomain.com"],
+  "subject": "Your Verification Code",
+  "cleanBody": "Hello Alex,\nYour one-time login code is 849201.",
+  "extractedOtp": "849201",
+  "actionLinks": ["https://example.com/auth/verify?token=abc123xyz"]
+}
+```

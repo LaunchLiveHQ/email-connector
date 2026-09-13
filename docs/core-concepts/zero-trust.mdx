@@ -1,0 +1,59 @@
+---
+title: "Zero-Trust Architecture"
+description: "Why Email Connector is designed with client-side Zero-Trust execution."
+---
+
+## The Zero-Trust Imperative
+
+In traditional transactional email management, developers connect their domains to centralized relays or third-party email routing platforms. This introduces critical security, compliance, and privacy risks:
+
+1. **Third-Party Credential Custody:** Your Mailgun, SendGrid, or AWS SES API keys are stored in a third-party cloud database.
+2. **Plaintext Message Ingestion:** Password reset links, OTP codes, sensitive order invoices, and customer communications pass through intermediate proxy servers.
+3. **GDPR / HIPAA Liability:** Centralized proxies become data processors that must be audited and covered under separate Data Processing Agreements (DPAs).
+
+---
+
+## How Mode A (Zero-Trust) Works
+
+Email Connector's default operating mode is **Mode A: In-Process Zero-Trust**.
+
+```
+  ┌────────────────────────────────────────────────────────┐
+  │              YOUR SERVER / EDGE RUNTIME                │
+  │                                                        │
+  │  1. ZeroTrustBalancer loads local API keys             │
+  │  2. Evaluates daily quota & server priority            │
+  │  3. Formats payload & executes Direct HTTPS request   │
+  └──────────────────────────┬─────────────────────────────┘
+                             │
+                             │ Direct TLS 1.3 Request
+                             ▼
+  ┌────────────────────────────────────────────────────────┐
+  │                 RECIPIENT ESP CLOUD                    │
+  │         (Resend, Brevo, Mailjet, AWS SES)              │
+  └────────────────────────────────────────────────────────┘
+```
+
+<Note>
+**Guaranteed Isolation:** At no point during the execution of `balancer.sendEmail()` is any network packet sent to `email-connector.com` or any centralized cloud endpoint.
+</Note>
+
+---
+
+## Comparison: Traditional Relays vs. Email Connector
+
+| Feature | Traditional Centralized Relays | Email Connector Mode A |
+| :--- | :--- | :--- |
+| **Data Flow** | App -> Centralized Cloud -> Provider | **App -> Provider Directly** |
+| **API Key Storage** | Third-party cloud database | **Local Environment Variables / Secrets Manager** |
+| **Email Message Body** | Stored and indexed on central servers | **Kept entirely in local memory** |
+| **Network Latency** | +80ms to +250ms (Extra intermediate hop) | **0ms overhead (Direct provider dispatch)** |
+| **Monthly Pricing** | $50 - $500+/mo recurring markup | **Free Open-Source SDK (Apache 2.0 / MIT)** |
+
+---
+
+## Managing Server Configurations Securely
+
+When using `@emailconnector/react` to allow users or administrators to input sending credentials:
+- Credentials can be encrypted locally using your application's KMS key before saving to your own database.
+- The pre-flight test handshake executes directly from your server to test SMTP or REST credentials before committing them.

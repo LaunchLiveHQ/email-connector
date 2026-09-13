@@ -1,0 +1,36 @@
+---
+title: "SDK Overview"
+description: "Core concepts and setup for the @emailconnector/sdk TypeScript package."
+---
+
+## Introduction
+
+`@emailconnector/sdk` is the core zero-trust in-process email engine. Written in TypeScript with strict typing, it works seamlessly across:
+- **Node.js**: v18.0.0+
+- **Next.js**: App Router & Pages Router (Edge or Node runtime)
+- **Express / Fastify / NestJS**
+- **Cloudflare Workers & Vercel Edge Functions**
+
+---
+
+## Installation
+
+```bash
+npm install @emailconnector/sdk
+```
+
+### Peer Dependencies
+`@emailconnector/sdk` depends only on `@emailconnector/config-schema` (which bundles lightweight Zod validation). It contains **zero heavy native dependencies**.
+
+---
+
+## SDK Modules Summary
+
+| Module | Class / Function | Description |
+| :--- | :--- | :--- |
+| **Balancer** | `ZeroTrustBalancer` | Priority cascade router, health monitor, and quota tracker. |
+| **Storage** | `MemoryStorageAdapter`, `RedisStorageAdapter` | Daily/monthly quota persistence adapters. |
+| **Drivers** | `createDriverFromServer` | Factory providing unified `EmailDriver` interface across 25+ ESPs. |
+| **Webhooks** | `WebhookSignature` | Standard Webhooks HMAC-SHA256 signer & verifier (`v1,base64`). |
+| **Licenses** | `SubscriptionVerifier` | Offline & online verifier unlocking enterprise ESP drivers. |
+| **Automations** | `CartRecoveryAutomation` | Multi-step recovery cascade with UTM tagging. |

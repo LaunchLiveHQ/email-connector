@@ -1,0 +1,28 @@
+---
+title: "SendingServersTable"
+description: "Display and re-order connected sending servers with live quotas and status toggles."
+---
+
+## Usage
+
+```tsx
+import { SendingServersTable } from "@emailconnector/react";
+
+export function SettingsScreen() {
+  return (
+    <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+      <h2 className="text-xl font-bold text-white mb-4">Active Relay Servers</h2>
+      <SendingServersTable />
+    </div>
+  );
+}
+```
+
+---
+
+## Features
+
+- **Priority Tagging:** Displays priority badge (1 to 5) indicating failover order.
+- **Quota Progress Bars:** Computes percentage of daily free capacity utilized in real-time.
+- **Inline Status Toggle:** Toggle servers between `active` and `disabled` without re-entering credentials.
+- **Deletion & Test Ping:** Test or delete connections directly from the actions column.

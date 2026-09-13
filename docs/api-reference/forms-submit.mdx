@@ -1,0 +1,32 @@
+---
+title: "Submit Form Response"
+api: "POST /api/forms/submit"
+description: "Ingest responses submitted through the FormRenderer conversational form runner."
+---
+
+### Request Body
+
+<ParamField body="formId" type="string" required>
+  The unique form identifier.
+</ParamField>
+
+<ParamField body="answers" type="object" required>
+  Dictionary mapping question field IDs to respondent answers.
+</ParamField>
+
+<ParamField body="respondentEmail" type="string">
+  Respondent email address if collected in the form.
+</ParamField>
+
+---
+
+### Response Example
+
+```json
+{
+  "success": true,
+  "submissionId": "resp_1700000000_3a8f9",
+  "message": "Form response captured successfully",
+  "submittedAt": "2026-09-13T22:35:00.000Z"
+}
+```

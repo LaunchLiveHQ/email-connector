@@ -1,0 +1,85 @@
+---
+title: "FormRenderer"
+description: "Conversational Typeform-style form runner component inspired by Formbricks."
+---
+
+## Overview
+
+The `<FormRenderer />` component renders beautiful, full-screen, multi-step conversational surveys, onboarding forms, and lead generators with keyboard navigation.
+
+---
+
+## Example Usage
+
+```tsx
+import { FormRenderer } from "@emailconnector/react";
+import { FormDefinition } from "@emailconnector/config-schema";
+
+const sampleForm: FormDefinition = {
+  id: "lead_form_1",
+  title: "Email Deliverability Survey",
+  fields: [
+    {
+      id: "q_name",
+      type: "open_text",
+      label: "What is your name?",
+      required: true,
+      buttonLabel: "Next ↵",
+      logicJumps: [],
+    },
+    {
+      id: "q_volume",
+      type: "multiple_choice_single",
+      label: "What is your monthly email volume?",
+      options: [
+        { id: "v1", label: "Under 25,000" },
+        { id: "v2", label: "25,000 - 100,000" },
+        { id: "v3", label: "100,000+" },
+      ],
+      required: true,
+      buttonLabel: "Next ↵",
+      logicJumps: [],
+    },
+    {
+      id: "q_email",
+      type: "email",
+      label: "What is your business email?",
+      required: true,
+      buttonLabel: "Submit ↵",
+      logicJumps: [],
+    },
+  ],
+  theme: {
+    brandColor: "#10B981",
+    backgroundColor: "#0B0F17",
+    textColor: "#F9FAFB",
+    roundness: "md",
+    darkMode: true,
+  },
+  thankYouTitle: "Thank you!",
+  thankYouMessage: "We have configured your custom zero-trust rotation profile.",
+  createdAt: Date.now(),
+  updatedAt: Date.now(),
+};
+
+export default function SurveyPage() {
+  return (
+    <FormRenderer
+      form={sampleForm}
+      onSubmit={async (response) => {
+        await fetch("/api/forms/submit", {
+          method: "POST",
+          body: JSON.stringify(response),
+        });
+      }}
+    />
+  );
+}
+```
+
+---
+
+## Keyboard Controls
+- `Enter`: Submit current question and transition smoothly to the next step.
+- `1` - `9`: Quick-select multiple choice options.
+- `Escape`: Clear current focus.

@@ -1,0 +1,115 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Email Connector",
+  "logo": {
+    "dark": "/logo/email-connector-logo.svg",
+    "light": "/logo/email-connector-logo.svg"
+  },
+  "favicon": "/logo/email-connector-logo.png",
+  "colors": {
+    "primary": "#10B981",
+    "light": "#34D399",
+    "dark": "#059669",
+    "topbar": {
+      "background": "#0B0F17"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Home",
+      "url": "https://email-connector.com"
+    },
+    {
+      "name": "Directory",
+      "url": "https://email-connector.com/providers"
+    },
+    {
+      "name": "Pricing",
+      "url": "https://email-connector.com/pricing"
+    }
+  ],
+  "topbarCtaButton": {
+    "type": "github",
+    "url": "https://github.com/launchlive/email-connector"
+  },
+  "tabs": [
+    {
+      "name": "Guides & SDK",
+      "url": "introduction"
+    },
+    {
+      "name": "React UI",
+      "url": "react"
+    },
+    {
+      "name": "Gateway & MCP",
+      "url": "gateway"
+    },
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "introduction",
+        "quickstart",
+        "core-concepts/zero-trust",
+        "core-concepts/quota-math"
+      ]
+    },
+    {
+      "group": "TypeScript SDK",
+      "pages": [
+        "sdk/overview",
+        "sdk/zero-trust-balancer",
+        "sdk/provider-drivers",
+        "sdk/storage-adapters",
+        "sdk/webhook-signatures",
+        "sdk/cart-recovery"
+      ]
+    },
+    {
+      "group": "React Components",
+      "pages": [
+        "react/overview",
+        "react/sending-servers-table",
+        "react/add-server-modal",
+        "react/quota-gauge",
+        "react/form-runner"
+      ]
+    },
+    {
+      "group": "Go Gateway & AI MCP",
+      "pages": [
+        "gateway/overview",
+        "gateway/mime-parser",
+        "gateway/dispatcher",
+        "gateway/mcp-server"
+      ]
+    },
+    {
+      "group": "Billing & Fee Engine",
+      "pages": [
+        "payments/multi-gateway",
+        "payments/fee-calculations"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "api-reference/overview",
+        "api-reference/checkout-create",
+        "api-reference/subscription-verify",
+        "api-reference/forms-submit",
+        "api-reference/inbound-webhook"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "github": "https://github.com/launchlive/email-connector",
+    "x": "https://x.com/emailconnector"
+  }
+}

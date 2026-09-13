@@ -1,0 +1,34 @@
+---
+title: "Go Gateway Overview"
+description: "High-performance integration gateway, MIME parser, and AI agent MCP server."
+---
+
+## Introduction
+
+`apps/gateway-go` is a native Go service built for high-throughput webhook dispatching, inbound email parsing, and Model Context Protocol (MCP) AI integration.
+
+### Core Features
+- **Zero Heavy Dependencies:** Built on Go standard library (`net/http` pattern routing, `crypto/hmac`, `net/mail`).
+- **Concurrent Dispatcher:** Worker pool handling outbound webhooks with exponential backoff and payload signatures.
+- **Inbound MIME Parser:** Strips reply-quote noise, normalizes text/HTML, and extracts OTP codes.
+- **AI Agent MCP Server:** Exposes tools to AI assistants via standard JSON-RPC 2.0.
+
+---
+
+## Building and Running
+
+<CodeGroup>
+```bash Run Server
+cd apps/gateway-go
+go build -o server ./cmd/server
+./server
+# Listening on :8080
+```
+
+```bash Run MCP Server
+cd apps/gateway-go
+go build -o mcp ./cmd/mcp
+./mcp
+# Runs stdio JSON-RPC loop
+```
+</CodeGroup>

@@ -1,0 +1,68 @@
+---
+title: "Webhook Signatures"
+description: "Verify and sign incoming webhook payloads using the Standard Webhooks HMAC-SHA256 specification."
+---
+
+## Overview
+
+Email Connector strictly adheres to the [Standard Webhooks](https://standardwebhooks.com) specification. Webhooks dispatched by our Go Gateway or your custom application include three standard headers:
+
+- `webhook-id`: Unique message identifier (e.g. `msg_1028391823`)
+- `webhook-timestamp`: Unix timestamp in seconds (e.g. `1700000000`)
+- `webhook-signature`: HMAC-SHA256 signature prefix with version (e.g. `v1,gMc3nQ...`)
+
+---
+
+## Verifying Incoming Webhooks
+
+Use `WebhookSignature.verify` in your HTTP request handler to prevent spoofing and replay attacks:
+
+```typescript
+import { WebhookSignature } from "@emailconnector/sdk";
+
+export async function handleWebhook(request: Request) {
+  const payload = await request.text();
+  const secret = process.env.WEBHOOK_SECRET!; // Format: whsec_...
+
+  const headers = {
+    "webhook-id": request.headers.get("webhook-id") || "",
+    "webhook-timestamp": request.headers.get("webhook-timestamp") || "",
+    "webhook-signature": request.headers.get("webhook-signature") || "",
+  };
+
+  const isValid = WebhookSignature.verify({
+    payload,
+    headers,
+    secret,
+    toleranceSeconds: 300, // 5 minutes max clock skew
+  });
+
+  if (!isValid) {
+    return new Response("Invalid signature or timestamp expired", { status: 401 });
+  }
+
+  const event = JSON.parse(payload);
+  console.log(`Verified webhook event: ${event.type}`);
+
+  return new Response("OK", { status: 200 });
+}
+```
+
+---
+
+## Signing Outgoing Webhooks
+
+If your backend publishes webhooks to customer endpoints, generate valid signatures with `WebhookSignature.sign`:
+
+```typescript
+import { WebhookSignature } from "@emailconnector/sdk";
+
+const signature = WebhookSignature.sign({
+  payload: JSON.stringify({ event: "email.delivered", id: "msg_901" }),
+  msgId: "msg_901",
+  timestamp: Math.floor(Date.now() / 1000),
+  secret: "whsec_supersecretkey12345",
+});
+
+// signature returns: "v1,abc123base64hmac..."
+```

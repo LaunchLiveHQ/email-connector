@@ -1,0 +1,48 @@
+---
+title: "Webhook Dispatcher"
+description: "Concurrent worker pool for reliable outbound webhook event delivery."
+---
+
+## Overview
+
+The `dispatcher.Dispatcher` engine in `apps/gateway-go` manages concurrent worker goroutines that deliver events to external HTTP endpoints.
+
+---
+
+## Key Features
+
+1. **Exponential Backoff:** If a target webhook server fails (HTTP 5xx or network drop), the dispatcher automatically retries with backoff delays.
+2. **Standard Webhook HMAC Signing:** Every outbound request is stamped with `webhook-id`, `webhook-timestamp`, and `webhook-signature` using HMAC-SHA256 (`v1,base64`).
+3. **Graceful Shutdown:** Workers drain pending queues before shutting down on SIGTERM.
+
+---
+
+## Enqueueing a Dispatch Job via HTTP
+
+`POST /api/v1/dispatch`
+
+```bash
+curl -X POST http://localhost:8080/api/v1/dispatch \
+  -H "Content-Type: application/json" \
+  -d '{
+    "webhookUrl": "https://api.yourbrand.com/webhooks/emails",
+    "secret": "whsec_live_abcdef123456",
+    "eventType": "email.delivered",
+    "payload": {
+      "messageId": "msg_90182",
+      "recipient": "user@example.com",
+      "status": "delivered"
+    },
+    "maxRetries": 3
+  }'
+```
+
+### Response:
+```json
+{
+  "success": true,
+  "jobId": "job_1700000000000",
+  "status": "queued",
+  "queuedAt": "2026-09-13T22:45:00Z"
+}
+```

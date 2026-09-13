@@ -1,0 +1,39 @@
+---
+title: "Verify Subscription"
+api: "POST /api/v1/subscriptions/verify"
+description: "Verify a client license key and return unlocked enterprise drivers."
+---
+
+### Request Body
+
+<ParamField body="subscriptionId" type="string" required>
+  The customer's subscription license key (e.g. `ec_sub_pro_demo` or `ec_test_enterprise`).
+</ParamField>
+
+---
+
+### Response Example
+
+```json
+{
+  "valid": true,
+  "plan": "pro",
+  "status": "active",
+  "unlockedProviders": [
+    "zeptomail",
+    "postmark",
+    "aws-ses",
+    "mailtrap",
+    "scaleway",
+    "mandrill",
+    "bird",
+    "netcore",
+    "sender",
+    "emailoctopus",
+    "smtp2go",
+    "mailgun"
+  ],
+  "allowedInboxes": 10,
+  "currentPeriodEnd": 1735689600
+}
+```

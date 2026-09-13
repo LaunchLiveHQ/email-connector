@@ -1,0 +1,52 @@
+---
+title: "Create Checkout Session"
+api: "POST /api/checkout/create"
+description: "Initialize a payment checkout session across 6 supported payment gateways."
+---
+
+### Request Body
+
+<ParamField body="planId" type="string" required>
+  Plan identifier (e.g. `starter`, `pro`, `enterprise`).
+</ParamField>
+
+<ParamField body="planName" type="string" required>
+  Display name of the plan (e.g. `Pro Plan`).
+</ParamField>
+
+<ParamField body="gateway" type="string" required>
+  Payment gateway identifier: `stripe`, `paypal`, `cashfree`, `razorpay`, `dodopayments`, `creem`.
+</ParamField>
+
+<ParamField body="basePriceUsd" type="number" required>
+  Base cost in USD (e.g. `79.00`).
+</ParamField>
+
+<ParamField body="customerEmail" type="string" required>
+  Customer email address for invoice delivery.
+</ParamField>
+
+<ParamField body="feeRule" type="object">
+  Optional custom fee rule override (`feeType`, `fixedAmount`, `percentageAmount`).
+</ParamField>
+
+---
+
+### Response Example
+
+```json
+{
+  "success": true,
+  "orderId": "ec_stripe_1700000000_a81b9c",
+  "gateway": "stripe",
+  "planName": "Pro Plan",
+  "currency": "USD",
+  "calculation": {
+    "basePrice": 79.00,
+    "feeAmount": 2.59,
+    "totalAmount": 81.59,
+    "feeLabel": "Stripe Processing Fee (2.9% + $0.30)"
+  },
+  "checkoutUrl": "https://checkout.stripe.com/pay/mock_session?order_id=..."
+}
+```

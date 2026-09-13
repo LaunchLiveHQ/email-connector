@@ -1,0 +1,37 @@
+---
+title: "AddServerModal"
+description: "Modal dialog for connecting new email providers with inline pre-flight handshake testing."
+---
+
+## Usage
+
+```tsx
+import React from "react";
+import { AddServerModal } from "@emailconnector/react";
+
+export function ConnectServerButton() {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  return (
+    <>
+      <button
+        onClick={() => setIsOpen(true)}
+        className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-white font-medium"
+      >
+        + Add Server
+      </button>
+
+      <AddServerModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+    </>
+  );
+}
+```
+
+---
+
+## Pre-flight Handshake Feature
+
+`<AddServerModal />` features a built-in **"Test Handshake"** button. Before a user commits credentials:
+1. It validates format with Zod schemas.
+2. Runs a dry-run handshake to verify the API key or SMTP TLS connection.
+3. Shows a success checkmark or descriptive error message (e.g. invalid credentials or expired token).

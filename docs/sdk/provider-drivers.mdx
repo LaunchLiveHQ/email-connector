@@ -1,0 +1,68 @@
+---
+title: "Provider Drivers"
+description: "List of supported email service providers across Core and Enterprise tiers."
+---
+
+## Core Free Drivers (Available in Open-Source SDK)
+
+The following drivers are bundled directly into the free open-source SDK:
+
+### 1. Resend (`resend`)
+- **Protocol:** Direct HTTPS REST API (`https://api.resend.com/emails`)
+- **Credentials:** `apiKey` (`re_...`)
+- **Key Features:** Native React Email formatting, high deliverability, sub-100ms dispatch latency.
+
+### 2. Brevo (`brevo`)
+- **Protocol:** Direct HTTPS REST API (`https://api.brevo.com/v3/smtp/email`)
+- **Credentials:** `apiKey` (`xkeysib-...`)
+- **Key Features:** 300 free emails every day, robust transactional delivery.
+
+### 3. Mailjet (`mailjet`)
+- **Protocol:** Direct HTTPS REST API (`https://api.mailjet.com/v3.1/send`)
+- **Credentials:** `apiKey` and `apiSecret` (HTTP Basic Auth)
+- **Key Features:** 200 free emails every day, European GDPR-compliant infrastructure.
+
+### 4. MailerSend (`mailersend`)
+- **Protocol:** Direct HTTPS REST API (`https://api.mailersend.com/v1/email`)
+- **Credentials:** `apiKey` (`mlsn....`)
+- **Key Features:** Clean REST endpoints, real-time activity tracking.
+
+### 5. Twilio SendGrid (`sendgrid`)
+- **Protocol:** Direct HTTPS REST API (`https://api.sendgrid.com/v3/mail/send`)
+- **Credentials:** `apiKey` (`SG....`)
+- **Key Features:** High-capacity enterprise scale.
+
+### 6. Generic Custom SMTP (`smtp`)
+- **Protocol:** RFC 5321 SMTP with STARTTLS / TLS
+- **Credentials:** `smtpHost`, `smtpPort`, `smtpUser`, `smtpPassword`, `smtpSecure`
+- **Key Features:** Compatible with any BYO-SMTP server, self-hosted Postfix, or Mailpit.
+
+---
+
+## Enterprise Paid Drivers
+
+Activating a license key unlocks 20+ enterprise drivers:
+
+<AccordionGroup>
+  <Accordion title="ZeptoMail (Zoho)">
+    Transactional REST API with dedicated IP warmup and email validation.
+  </Accordion>
+  <Accordion title="Postmark (ActiveCampaign)">
+    Sub-second time-to-inbox SLA with dedicated transactional stream isolation.
+  </Accordion>
+  <Accordion title="Amazon Simple Email Service (AWS SES)">
+    Ultra-low-cost bulk and transactional delivery ($0.10 per 1,000 emails).
+  </Accordion>
+  <Accordion title="Mailtrap">
+    Integrated email testing sandbox and production transactional sending.
+  </Accordion>
+  <Accordion title="Scaleway TEM">
+    European sovereign cloud transactional email engine.
+  </Accordion>
+  <Accordion title="Mandrill (Mailchimp)">
+    Mailchimp's transactional delivery add-on.
+  </Accordion>
+  <Accordion title="Bird (MessageBird), Netcore, Sender, EmailOctopus, SMTP2GO, Mailgun">
+    Global carrier and regional delivery integrations.
+  </Accordion>
+</AccordionGroup>

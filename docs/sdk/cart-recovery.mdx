@@ -1,0 +1,44 @@
+---
+title: "Cart Recovery Automations"
+description: "Schedule automated multi-step email recovery sequences for abandoned checkout carts."
+---
+
+## Overview
+
+The SDK includes a built-in `CartRecoveryAutomation` class that orchestrates high-converting recovery emails with automated UTM link decoration, product breakdowns, and discount code insertion.
+
+---
+
+## Example Usage
+
+```typescript
+import { CartRecoveryAutomation, ZeroTrustBalancer } from "@emailconnector/sdk";
+
+const balancer = new ZeroTrustBalancer({ /* servers */ });
+
+const recovery = new CartRecoveryAutomation({
+  balancer,
+  fromEmail: "orders@brand.com",
+  brandName: "Acme Store",
+});
+
+// Triggered when user abandons cart
+await recovery.triggerRecoverySequence({
+  customerEmail: "shopper@example.com",
+  customerName: "Sam",
+  checkoutUrl: "https://brand.com/checkout/cart_92810",
+  items: [
+    { title: "Wireless Noise-Cancelling Headphones", price: 149.99, quantity: 1 },
+    { title: "Braided USB-C Cable", price: 19.99, quantity: 2 },
+  ],
+  step: 1, // Step 1 (1 hour), Step 2 (24 hours), Step 3 (48 hours + discount)
+  discountCode: "COMEBACK10",
+});
+```
+
+---
+
+## Automated Features
+
+- **Automatic UTM Tracking:** Checkout links are tagged with `utm_source=emailconnector&utm_medium=email&utm_campaign=cart_recovery_step1`.
+- **Zero-Trust Delivery:** All emails dispatch via your healthy sending servers without routing through an external marketing cloud.
