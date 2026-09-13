@@ -1,7 +1,7 @@
 {
   "name": "@emailconnector/react",
   "version": "1.0.0",
-  "description": "Embeddable open-source React component library for sending server management, quotas and Typeform-style form runner",
+  "description": "Embeddable open-source React component library for sending server management, quotas and conversational interactive form runner",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
