@@ -24,6 +24,10 @@
       "url": "https://email-connector.com/providers"
     },
     {
+      "name": "Forms Service",
+      "url": "https://email-connector.com/pricing"
+    },
+    {
       "name": "Pricing",
       "url": "https://email-connector.com/pricing"
     }
@@ -36,6 +40,14 @@
     {
       "name": "Guides & SDK",
       "url": "introduction"
+    },
+    {
+      "name": "Forms Service",
+      "url": "forms"
+    },
+    {
+      "name": "Plugins & Apps",
+      "url": "plugins"
     },
     {
       "name": "React UI",
@@ -58,6 +70,18 @@
         "quickstart",
         "core-concepts/zero-trust",
         "core-concepts/quota-math"
+      ]
+    },
+    {
+      "group": "Interactive Forms Service",
+      "pages": [
+        "forms/overview"
+      ]
+    },
+    {
+      "group": "Ready-to-Use Plugins",
+      "pages": [
+        "plugins/ecommerce-integrations"
       ]
     },
     {

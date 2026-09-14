@@ -1,6 +1,6 @@
 ---
 title: "Introduction"
-description: "Welcome to Email Connector — the zero-trust email orchestration platform and universal AI inbox engine."
+description: "Welcome to Email Connector — the zero-trust email orchestration platform, interactive forms engine, and universal AI inbox."
 ---
 
 <p align="center">
@@ -9,11 +9,17 @@ description: "Welcome to Email Connector — the zero-trust email orchestration 
 
 # Email Connector
 
-**Email Connector** is an open-source email orchestration engine and directory marketplace. It solves vendor lock-in and high transactional email costs by providing a **zero-trust, client-side load balancer** that stacks and rotates across free email tiers—granting developers **~24,000 completely free emails every month (800/day)** with $0.00 infrastructure spend.
+**Email Connector** is an open-source email orchestration engine, interactive forms service, and directory marketplace. It solves vendor lock-in and high transactional email costs by providing a **zero-trust, client-side load balancer** that stacks and rotates across free email tiers—granting businesses and developers **~24,000 completely free emails every month (800/day)** with $0.00 infrastructure spend.
 
-<CardGroup cols={2}>
+<CardGroup cols={3}>
   <Card title="Quickstart Guide" icon="bolt" href="/quickstart">
     Send your first transactional email via multi-provider failover in under 3 minutes.
+  </Card>
+  <Card title="Interactive Forms Service" icon="file-text" href="/forms/overview">
+    Create conversational lead capture surveys with guaranteed notification delivery.
+  </Card>
+  <Card title="Plugins & Apps" icon="store" href="/plugins/ecommerce-integrations">
+    Ready-to-use plugins for Shopify, WooCommerce, Webflow, and Zapier.
   </Card>
   <Card title="Zero-Trust Architecture" icon="shield-check" href="/core-concepts/zero-trust">
     Learn how Mode A guarantees your API keys and emails never touch our servers.
@@ -38,10 +44,13 @@ Unlike legacy email APIs and aggregators, Email Connector's SDK executes entirel
 ### 2. Built-in Priority Cascades & Quota Failover
 Configure servers by priority level (1 to 5). If Priority 1 provider hits its daily free limit (e.g. Resend's 100/day limit) or encounters a rate limit (HTTP 429), the engine automatically cascades to Priority 2 (e.g. Brevo's 300/day limit) without dropping a single email.
 
-### 3. Embeddable React Admin (`@emailconnector/react`)
-Drop a full "Sending Servers & Integrations" screen into your user settings in minutes. It includes real-time circular quota gauges, status toggles, and pre-flight credential handshakes.
+### 3. Interactive Forms & Lead Engine
+Deploy pre-built lead capture and survey forms with step-by-step conversational runners, lead ledger inspections, CSV exports, and automatic email delivery backup.
 
-### 4. High-Performance Go Gateway & MCP Server (`apps/gateway-go`)
+### 4. Ready-to-Use Plugins for Store Owners
+Ready-to-use apps for Shopify, WooCommerce/WordPress, and Webflow ensure eCommerce stores never drop receipt emails or order notifications.
+
+### 5. High-Performance Go Gateway & MCP Server (`apps/gateway-go`)
 Includes a production-grade Go HTTP gateway with RFC 5322 MIME stream parsing, reply-chain stripping, automated OTP extraction, and a Model Context Protocol (MCP) server for autonomous AI workflows.
 
 ---
