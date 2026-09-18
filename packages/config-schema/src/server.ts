@@ -14,6 +14,10 @@ export const EnterpriseDriverTypeEnum = z.enum([
   "zeptomail",
   "postmark",
   "aws_ses",
+  "sendpulse",
+  "azure",
+  "smtp2go",
+  "mailgun",
   "mailtrap",
   "scaleway",
   "mandrill",
@@ -21,8 +25,6 @@ export const EnterpriseDriverTypeEnum = z.enum([
   "netcore",
   "sender",
   "emailoctopus",
-  "smtp2go",
-  "mailgun",
   "reloop",
   "lettr",
   "jetemail",
@@ -33,7 +35,17 @@ export const EnterpriseDriverTypeEnum = z.enum([
   "inbound",
   "sequenzy",
   "knock",
-  "courier"
+  "courier",
+  "plunk",
+  "loops",
+  "sparkpost",
+  "cloudflare",
+  "iterable",
+  "lettermint",
+  "mailpace",
+  "unosend",
+  "ahasend",
+  "mailchannels"
 ]);
 export type EnterpriseDriverType = z.infer<typeof EnterpriseDriverTypeEnum>;
 
@@ -49,6 +61,10 @@ export const DriverTypeEnum = z.enum([
   "zeptomail",
   "postmark",
   "aws_ses",
+  "sendpulse",
+  "azure",
+  "smtp2go",
+  "mailgun",
   "mailtrap",
   "scaleway",
   "mandrill",
@@ -56,8 +72,6 @@ export const DriverTypeEnum = z.enum([
   "netcore",
   "sender",
   "emailoctopus",
-  "smtp2go",
-  "mailgun",
   "reloop",
   "lettr",
   "jetemail",
@@ -68,7 +82,17 @@ export const DriverTypeEnum = z.enum([
   "inbound",
   "sequenzy",
   "knock",
-  "courier"
+  "courier",
+  "plunk",
+  "loops",
+  "sparkpost",
+  "cloudflare",
+  "iterable",
+  "lettermint",
+  "mailpace",
+  "unosend",
+  "ahasend",
+  "mailchannels"
 ]);
 export type DriverType = z.infer<typeof DriverTypeEnum>;
 
@@ -89,7 +113,15 @@ export const DriverCredentialsSchema = z.object({
   encryption: SmtpEncryptionEnum.default("tls").optional(),
   // AWS SES specific
   accessKeyId: z.string().optional(),
-  secretAccessKey: z.string().optional()
+  secretAccessKey: z.string().optional(),
+  // OAuth 2.0 (e.g. SendPulse)
+  clientId: z.string().optional(),
+  clientSecret: z.string().optional(),
+  // Azure specific
+  connectionString: z.string().optional(),
+  endpoint: z.string().optional(),
+  // SMTP2GO specific
+  fastAccept: z.boolean().optional()
 });
 export type DriverCredentials = z.infer<typeof DriverCredentialsSchema>;
 

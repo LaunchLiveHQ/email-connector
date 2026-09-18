@@ -6,4 +6,5 @@ export * from "./subscription.js";
 export * from "./email.js";
 export * from "./webhook.js";
 export * from "./form.js";
+export { z } from "zod";
 
