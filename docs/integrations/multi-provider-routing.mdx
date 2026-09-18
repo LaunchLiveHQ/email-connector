@@ -16,12 +16,12 @@ Connecting your application or eCommerce store to only one email service provide
 ### 1. Zero-Downtime Automatic Failover
 When you send an email through Email Connector, our balancer monitors delivery health in real time. If your primary provider experiences a temporary outage, high latency, or rate limit rejection (HTTP 429 / 5xx), the connector automatically retries the message through your configured backup provider within milliseconds—without dropping the email or bothering your engineering team.
 
-### 2. Traffic Lane Separation
-Never let marketing campaigns interfere with mission-critical transactional emails:
-- **Transactional Lane (Priority 1)**: Password resets, two-factor authentication (2FA) codes, cart checkout confirmations, shipping alerts. Routed through ultra-reliable transactional providers (e.g. AWS SES, Postmark, Resend).
-- **Marketing Lane (Priority 2)**: Promotional announcements, weekly newsletters, onboarding nurture sequences. Routed through high-volume marketing providers (e.g. Brevo, SendPulse, Mailchimp, Kit.com, Beehiiv).
+### 2. Keep Order Emails and Marketing Broadcasts Separate
+Never let marketing campaigns interfere with critical customer emails:
+- **Order Receipts & Security Codes**: Password resets, two-factor login codes, checkout receipts, and shipping alerts route through ultra-reliable transactional providers (e.g. AWS SES, Postmark, Resend).
+- **Newsletters & Promotional Campaigns**: Special offers, weekly newsletters, and onboarding sequences route through marketing providers (e.g. Brevo, SendPulse, Mailchimp, Kit.com, Beehiiv).
 
-By separating IP reputation and delivery pools across lanes, a spike in marketing unsubscribes or spam reports can never hurt your order receipt deliverability.
+By separating the sending paths, any marketing spam complaints will never hurt your order confirmations or password reset delivery.
 
 ### 3. Freedom From Vendor Lock-In
 Different providers excel at different things:
@@ -65,13 +65,13 @@ With Email Connector, you can switch providers or rebalance volume with a single
 
 <Steps>
   <Step title="Add Your Sending Providers">
-    Configure API keys for your preferred services (e.g. AWS SES, Resend, Brevo, Postmark). In Mode A (Default), your keys never leave your server.
+    Add API keys for your preferred services (e.g. AWS SES, Resend, Brevo, Postmark). Your keys remain directly on your server.
   </Step>
-  <Step title="Assign Providers to Lanes">
-    Designate which provider handles **Transactional** traffic and which handles **Marketing** broadcasts.
+  <Step title="Assign Providers by Email Type">
+    Choose which provider sends your **Order Receipts & Passwords** and which sends your **Marketing Campaigns & Newsletters**.
   </Step>
-  <Step title="Send via Single Unified Interface">
-    Send emails using the TypeScript SDK or REST Gateway. The router automatically handles lane routing, load balancing, and failover retries.
+  <Step title="Send With One Simple Interface">
+    Send emails using the SDK or simple REST API. The router automatically handles provider selection, rate limit avoidance, and instant backup retries.
   </Step>
 </Steps>
 

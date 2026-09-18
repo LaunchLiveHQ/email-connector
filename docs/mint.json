@@ -34,7 +34,7 @@
   ],
   "topbarCtaButton": {
     "type": "github",
-    "url": "https://github.com/launchlive/email-connector"
+    "url": "https://github.com/launchlivehq/email-connector"
   },
   "tabs": [
     {
@@ -141,7 +141,7 @@
     }
   ],
   "footerSocials": {
-    "github": "https://github.com/launchlive/email-connector",
+    "github": "https://github.com/launchlivehq/email-connector",
     "x": "https://x.com/emailconnector"
   }
 }

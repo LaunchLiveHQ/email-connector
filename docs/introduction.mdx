@@ -21,8 +21,8 @@ description: "Welcome to Email Connector — the zero-trust email orchestration 
   <Card title="Plugins & Apps" icon="store" href="/plugins/ecommerce-integrations">
     Ready-to-use plugins for Shopify, WooCommerce, Webflow, and Zapier.
   </Card>
-  <Card title="Zero-Trust Architecture" icon="shield-check" href="/core-concepts/zero-trust">
-    Learn how Mode A guarantees your API keys and emails never touch our servers.
+  <Card title="Direct & Private Sending" icon="shield-check" href="/core-concepts/zero-trust">
+    Learn how your API keys and emails stay on your own server without a middleman.
   </Card>
   <Card title="React UI Components" icon="react" href="/react/overview">
     Drop our dark-mode `<SendingServersTable />` and modal directly into your SaaS.
@@ -36,10 +36,10 @@ description: "Welcome to Email Connector — the zero-trust email orchestration 
 
 ## Why Email Connector?
 
-### 1. Zero Cloud Intermediary (Zero-Trust Mode A)
-Unlike legacy email APIs and aggregators, Email Connector's SDK executes entirely in your own process memory (Node.js or Edge runtimes). 
-- **Direct HTTPS Requests:** Emails are delivered straight from your backend to Brevo, Resend, Mailjet, MailerSend, or SendGrid.
-- **No Data Leaks:** Recipient PII, email bodies, and provider API keys are never stored on, inspected by, or transmitted to any central database.
+### 1. Direct Sending With No Middleman
+Unlike other email platforms, Email Connector connects directly from your own application to your email provider.
+- **Direct Sending:** Emails are delivered straight from your website or server to Brevo, Resend, Mailjet, MailerSend, AWS SES, or SendGrid.
+- **Complete Privacy:** Customer emails, personal details, and provider API keys are never stored on, inspected by, or routed through any third-party middleman.
 
 ### 2. Built-in Priority Cascades & Quota Failover
 Configure servers by priority level (1 to 5). If Priority 1 provider hits its daily free limit (e.g. Resend's 100/day limit) or encounters a rate limit (HTTP 429), the engine automatically cascades to Priority 2 (e.g. Brevo's 300/day limit) without dropping a single email.

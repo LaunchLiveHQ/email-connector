@@ -1,21 +1,21 @@
 ---
-title: "Zero-Trust Architecture"
-description: "Why Email Connector is designed with client-side Zero-Trust execution."
+title: "Direct & Private Sending (No Middleman)"
+description: "Why Email Connector sends directly from your server to your email provider without any middleman storing your data."
 ---
 
-## The Zero-Trust Imperative
+## Why Direct Sending Matters (No Middleman)
 
-In traditional transactional email management, developers connect their domains to centralized relays or third-party email routing platforms. This introduces critical security, compliance, and privacy risks:
+In traditional email management, developers and businesses often connect their domains to centralized third-party routing platforms. This introduces privacy and security risks:
 
-1. **Third-Party Credential Custody:** Your Mailgun, SendGrid, or AWS SES API keys are stored in a third-party cloud database.
-2. **Plaintext Message Ingestion:** Password reset links, OTP codes, sensitive order invoices, and customer communications pass through intermediate proxy servers.
-3. **GDPR / HIPAA Liability:** Centralized proxies become data processors that must be audited and covered under separate Data Processing Agreements (DPAs).
+1. **Third-Party Key Storage:** Your provider API keys are stored in an external company's database.
+2. **Messages Read by Intermediaries:** Password resets, receipts, and private customer messages pass through intermediate servers.
+3. **Privacy Compliance:** Centralized proxies become extra data processors that need additional compliance agreements.
 
 ---
 
-## How Mode A (Zero-Trust) Works
+## How Direct & Private Sending Works
 
-Email Connector's default operating mode is **Mode A: In-Process Zero-Trust**.
+Email Connector connects directly from your application to your email provider:
 
 ```
   ┌────────────────────────────────────────────────────────┐
