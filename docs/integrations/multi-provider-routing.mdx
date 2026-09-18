@@ -1,0 +1,122 @@
+---
+title: "Multi-Provider Email Routing & Automatic Failover"
+description: "How Email Connector connects multiple email service providers through one unified interface, separates transactional and marketing lanes, and guarantees zero downtime."
+---
+
+# Multi-Provider Email Routing & Failover
+
+Connecting your application or eCommerce store to only one email service provider introduces a dangerous single point of failure. If that provider experiences an outage, rate limits your account, or flags a sudden volume surge during a flash sale, your critical customer emails (order receipts, login codes, password resets) will stop delivering immediately.
+
+**Email Connector** solves this problem by providing a unified, zero-downtime routing layer across all your email services.
+
+---
+
+## Key Benefits
+
+### 1. Zero-Downtime Automatic Failover
+When you send an email through Email Connector, our balancer monitors delivery health in real time. If your primary provider experiences a temporary outage, high latency, or rate limit rejection (HTTP 429 / 5xx), the connector automatically retries the message through your configured backup provider within milliseconds—without dropping the email or bothering your engineering team.
+
+### 2. Traffic Lane Separation
+Never let marketing campaigns interfere with mission-critical transactional emails:
+- **Transactional Lane (Priority 1)**: Password resets, two-factor authentication (2FA) codes, cart checkout confirmations, shipping alerts. Routed through ultra-reliable transactional providers (e.g. AWS SES, Postmark, Resend).
+- **Marketing Lane (Priority 2)**: Promotional announcements, weekly newsletters, onboarding nurture sequences. Routed through high-volume marketing providers (e.g. Brevo, SendPulse, Mailchimp, Kit.com, Beehiiv).
+
+By separating IP reputation and delivery pools across lanes, a spike in marketing unsubscribes or spam reports can never hurt your order receipt deliverability.
+
+### 3. Freedom From Vendor Lock-In
+Different providers excel at different things:
+- **Cloud Infrastructure (e.g. AWS SES)**: Rock-bottom sending costs ($0.10 per 1,000 emails) with massive scale.
+- **Developer Platforms (e.g. Resend, Postmark)**: Rapid developer velocity, beautiful React-email templates, instant logs.
+- **Audience & Newsletter Engines (e.g. Beehiiv, Substack, Kit.com)**: Rich subscriber management, content monetization, and broadcast editing.
+
+With Email Connector, you can switch providers or rebalance volume with a single configuration change—no codebase refactoring required.
+
+---
+
+## How It Works
+
+```
+                        ┌──────────────────────────────┐
+                        │   Your App, Store, or Form   │
+                        └──────────────┬───────────────┘
+                                       │
+                         ┌─────────────▼───────────────┐
+                         │   Email Connector Router    │
+                         │   - Health & Quota Engine   │
+                         │   - Smart Lane Classifier   │
+                         └───────┬──────────────┬──────┘
+                                 │              │
+                    Transactional│              │Marketing
+                                 │              │
+                   ┌─────────────▼────┐    ┌────▼─────────────┐
+                   │ Primary Provider │    │ Primary Marketer │
+                   │   (e.g., SES)    │    │ (e.g., Brevo)    │
+                   └───────┬──────────┘    └────┬─────────────┘
+                           │ Outage Failover    │ Outage Failover
+                   ┌───────▼──────────┐    ┌────▼─────────────┐
+                   │ Backup Provider  │    │ Backup Marketer  │
+                   │  (e.g., Postmark)│    │ (e.g., SendPulse)│
+                   └──────────────────┘    └──────────────────┘
+```
+
+---
+
+## Setup in 3 Simple Steps
+
+<Steps>
+  <Step title="Add Your Sending Providers">
+    Configure API keys for your preferred services (e.g. AWS SES, Resend, Brevo, Postmark). In Mode A (Default), your keys never leave your server.
+  </Step>
+  <Step title="Assign Providers to Lanes">
+    Designate which provider handles **Transactional** traffic and which handles **Marketing** broadcasts.
+  </Step>
+  <Step title="Send via Single Unified Interface">
+    Send emails using the TypeScript SDK or REST Gateway. The router automatically handles lane routing, load balancing, and failover retries.
+  </Step>
+</Steps>
+
+---
+
+## Code Example: SDK In-Process Balancer
+
+```typescript
+import { ZeroTrustBalancer } from "@emailconnector/sdk";
+
+const balancer = new ZeroTrustBalancer({
+  providers: [
+    {
+      id: "aws-ses-primary",
+      type: "aws-ses",
+      apiKey: process.env.AWS_SES_KEY!,
+      region: "us-east-1",
+      priority: 1,
+      lane: "transactional"
+    },
+    {
+      id: "resend-backup",
+      type: "resend",
+      apiKey: process.env.RESEND_API_KEY!,
+      priority: 2,
+      lane: "transactional"
+    },
+    {
+      id: "brevo-marketing",
+      type: "brevo",
+      apiKey: process.env.BREVO_API_KEY!,
+      priority: 1,
+      lane: "marketing"
+    }
+  ]
+});
+
+// Send transactional email with automatic failover
+const result = await balancer.sendEmail({
+  lane: "transactional",
+  from: "orders@yourdomain.com",
+  to: "customer@example.com",
+  subject: "Your Order #10492 has shipped!",
+  html: "<p>Thank you for your order!</p>"
+});
+
+console.log("Delivered via provider:", result.providerId);
+```

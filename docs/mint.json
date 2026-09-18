@@ -73,9 +73,17 @@
       ]
     },
     {
+      "group": "Multi-Provider Routing",
+      "pages": [
+        "integrations/multi-provider-routing",
+        "integrations/providers-directory"
+      ]
+    },
+    {
       "group": "Interactive Forms Service",
       "pages": [
-        "forms/overview"
+        "forms/overview",
+        "forms/conversational-runner"
       ]
     },
     {

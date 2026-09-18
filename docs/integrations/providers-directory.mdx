@@ -1,0 +1,77 @@
+---
+title: "Supported Providers Directory"
+description: "Browse 40+ supported email providers across Transactional, Marketing, Hybrid, and Newsletter publishing categories."
+---
+
+# Supported Providers Directory
+
+Email Connector supports over 40 leading email service providers, newsletter publishing engines, and transactional APIs. You can connect, combine, and failover between any of these providers using one consistent integration interface.
+
+---
+
+## Provider Categories
+
+### 1. Hybrid Platforms (Transactional & Marketing)
+Platforms providing unified APIs for sending both individual transaction receipts and scheduled subscriber campaigns:
+
+| Provider | Best For | Standout Features |
+| :--- | :--- | :--- |
+| **AWS SES** | High scale & enterprise cost efficiency | $0.10/1k sends, dedicated IP pools, global regions |
+| **Brevo** | SMBs, eCommerce, multi-channel | Built-in CRM, SMS & WhatsApp bridge, EU hosting |
+| **SendPulse** | Multi-channel automation | Email + web push + chatbots, free tier |
+| **SendGrid** | Proven developer infrastructure | Deep deliverability analytics, marketing automation |
+| **Postmark** | Ultra-fast transactional delivery | Sub-second latency, message stream separation |
+| **Resend** | Modern web apps & React developers | React Email first, clean developer ergonomics |
+| **Mailgun** | Heavy API volume & inbound parsing | Robust inbound email routing, SPF/DKIM verification |
+
+---
+
+### 2. Marketing Automation & eCommerce Specialists
+Specialized platforms built for audience segmentation, drip sequences, eCommerce cart recovery, and subscriber engagement:
+
+| Provider | Best For | Standout Features |
+| :--- | :--- | :--- |
+| **Mailchimp** | General marketing & small businesses | Pre-built templates, visual journey builder |
+| **AWeber** | Direct marketing & digital creators | Visual automation builder, 24/7 live support |
+| **GetResponse** | Lead generation & funnels | Webinar hosting, landing pages, automated funnels |
+| **Omnisend** | eCommerce stores (Shopify, WooCommerce) | Pre-built cart recovery workflows, SMS bundles |
+| **Kit.com (ConvertKit)** | Professional creators & educators | Creator network, subscriber tagging, digital products |
+| **Klaviyo** | Advanced eCommerce data segmentation | Predictive lifetime value analytics, Shopify sync |
+| **ActiveCampaign** | Advanced B2B & SMB CRM automation | Condition-based branching, lead scoring |
+
+---
+
+### 3. Newsletter & Creator Publishing Platforms
+Dedicated publishing engines for independent writers, media companies, and subscription publications:
+
+| Provider | Best For | Standout Features |
+| :--- | :--- | :--- |
+| **Substack** | Direct audience monetization & writing | Zero-friction setup, built-in audience recommendations |
+| **Beehiiv** | High-growth newsletter scale | Built-in ad network, referral programs, 3D analytics |
+| **Ghost** | Open-source publishing & self-hosting | Zero platform cuts on memberships, custom themes |
+| **Buttondown** | Minimalist markdown publishing | Clean markdown editor, privacy-first analytics |
+| **Curated** | Link roundups & editorial digests | Fast link capture extension, clean two-column emails |
+
+---
+
+## Adding a Custom Provider
+
+Need to connect an internal SMTP relay or proprietary provider? Email Connector supports custom HTTP drivers and SMTP credentials:
+
+```typescript
+import { ZeroTrustBalancer } from "@emailconnector/sdk";
+
+const balancer = new ZeroTrustBalancer({
+  providers: [
+    {
+      id: "custom-smtp",
+      type: "smtp",
+      host: "smtp.internal.company.com",
+      port: 587,
+      user: process.env.SMTP_USER!,
+      pass: process.env.SMTP_PASS!,
+      lane: "transactional"
+    }
+  ]
+});
+```
